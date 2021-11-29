@@ -7,19 +7,15 @@ namespace TwitterStatistics.Service.Managers
 {
     public class TwitterStatisticsManager : ITwitterStatisticsManager
     {
-        public async Task<SampledTweetsStatistics> GetSampledTweetsStatistics(CancellationToken cancellationToken = default)
+        public async Task<SampledTweetsStatistics> GetSampledTweetsStatistics()
         {
-            var tweetStats = new SampledTweetsStatistics();
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return tweetStats;
-            }
-
             const double preventZeroDivisionNumber = 0.0001;
             const double minuteToMilliseconds = 60000.0;
 
-            tweetStats.TotalSampledTweets = SampledTweetsPolling.SampledTweetBag.Count;
+            var tweetStats = new SampledTweetsStatistics
+            {
+                TotalSampledTweets = SampledTweetsPolling.SampledTweetBag.Count
+            };
 
             var elapsedMilliseconds = SampledTweetsPolling.ElapsedMilliseconds != 0
                 ? SampledTweetsPolling.ElapsedMilliseconds

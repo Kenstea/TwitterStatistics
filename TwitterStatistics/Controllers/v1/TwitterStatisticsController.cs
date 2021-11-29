@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TwitterStatistics.Service.Managers;
 using TwitterStatistics.Service.Models;
@@ -18,9 +17,9 @@ namespace TwitterStatistics.Service.Controllers.v1
         }     
 
         [HttpGet]
-        public async Task<SampledTweetsStatistics> SampleTweetStatistics(CancellationToken cancellationToken = default)
+        public async Task<SampledTweetsStatistics> SampleTweetStatistics()
         {
-            var tweets = await _tweetComputationManager.GetSampledTweetsStatistics(cancellationToken);
+            var tweets = await _tweetComputationManager.GetSampledTweetsStatistics();
 
             return tweets;
         }
