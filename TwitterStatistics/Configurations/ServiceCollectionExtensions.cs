@@ -53,21 +53,5 @@ namespace TwitterStatistics.Service.Configurations
                 .OrResult(msg => msg.StatusCode == HttpStatusCode.TooManyRequests)
                 .WaitAndRetryAsync(retryCount, RetryAttemptCalculation);
         }
-
-        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicyUnauthorizedRequest()
-        {
-            // Start with a 1 minute wait and double each attempt.
-            // Note that every HTTP 429 received increases the time we must wait until rate limiting will no longer will be in effect for the account.
-            TimeSpan RetryAttemptCalculation
-                (int retryAttempt) => TimeSpan.FromSeconds(60 * Math.Pow(retryAttempt - 1, 2));
-
-            // Set unlimited until rate limiting will no longer will be in effect for the account.
-            const int retryCount = int.MaxValue;
-
-            return HttpPolicyExtensions
-                .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == HttpStatusCode.TooManyRequests)
-                .WaitAndRetryAsync(retryCount, RetryAttemptCalculation);
-        }
     }
 }
