@@ -6,6 +6,6 @@ namespace TwitterStatistics.Service.Managers
 {
     public interface ITwitterStatisticsManager
     {
-        Task<SampledTweetsStatistics> GetSampledTweetsStatistics(CancellationToken cancellationToken);
+        Task<SampledTweetsStatistics> GetSampledTweetsStatistics();
     }
 }
