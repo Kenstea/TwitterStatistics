@@ -16,8 +16,8 @@ namespace TwitterStatistics.Service.Managers
                 return tweetStats;
             }
 
-            var preventZeroDivisionNumber = 0.0001;
-            var minuteToMilliseconds = 60000.0;
+            const double preventZeroDivisionNumber = 0.0001;
+            const double minuteToMilliseconds = 60000.0;
 
             tweetStats.TotalSampledTweets = SampledTweetsPolling.SampledTweetBag.Count;
 
