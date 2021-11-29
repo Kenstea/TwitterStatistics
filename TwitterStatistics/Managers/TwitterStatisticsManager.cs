@@ -16,14 +16,17 @@ namespace TwitterStatistics.Service.Managers
                 return tweetStats;
             }
 
+            var preventZeroDivisionNumber = 0.0001;
+            var minuteToMilliseconds = 60000.0;
+
             tweetStats.TotalSampledTweets = SampledTweetsPolling.SampledTweetBag.Count;
 
             var elapsedMilliseconds = SampledTweetsPolling.ElapsedMilliseconds != 0
                 ? SampledTweetsPolling.ElapsedMilliseconds
-                : 0.0001;
+                : preventZeroDivisionNumber;
 
             tweetStats.AverageTweetsPerMinute =
-                (int)Math.Round((SampledTweetsPolling.SampledTweetBag.Count / elapsedMilliseconds) * 60000.0, 0);
+                (int)Math.Round((SampledTweetsPolling.SampledTweetBag.Count / elapsedMilliseconds) * minuteToMilliseconds, 0);
 
             await Task.CompletedTask;
             return tweetStats;
