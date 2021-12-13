@@ -76,7 +76,10 @@ namespace TwitterStatistics.Service.Services
                 };
 
                 var jsonSerializer = new JsonSerializer();
-                var tweetCount = 0;
+
+                _logger.LogInformation("Started analyzing streaming...");
+               
+                //var tweetCount = 0;
                 while (await jsonReader.ReadAsync(cancellationToken))
                 {
                     var loadedJson = await JToken.LoadAsync(jsonReader, cancellationToken);
@@ -87,7 +90,8 @@ namespace TwitterStatistics.Service.Services
 
                     sampledTweets.Add(sampledTweet);
 
-                    _logger.LogInformation("Tweet count: {0}\r\n", ++tweetCount);
+                    //_logger.LogInformation("Tweet count: {0}\r\n", ++tweetCount);
+                    //_logger.LogInformation("Tweet: {0}\r\n", JsonConvert.SerializeObject(sampledTweet,Formatting.Indented));
                 }
 
                 _logger.LogInformation(@"Streaming has stopped sending data for a reason but not an exception. 
@@ -103,13 +107,11 @@ Simply returns results and comes back if needed.");
                 _logger.LogError(ex, "An unexpected error when calling Twitter API.");
                 throw;
             }
-            
             catch (TimeoutException ex)
             {
                 _logger.LogError(ex,"GetSampledStream is timed out.");
                 throw;
             }
-            
             catch (Exception e)
             {
                 _logger.LogError(e,"Unable to get sampled stream from Twitter.");

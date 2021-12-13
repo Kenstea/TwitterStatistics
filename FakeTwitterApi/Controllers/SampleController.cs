@@ -14,7 +14,7 @@ namespace FakeTwitterApi.Controllers
         public SampleController(ILogger<SampleController> logger)
         {
             _logger = logger;
-            JsonData = System.IO.File.ReadAllText(@"C:\Users\nctha\OneDrive\Career\JackHenry & Associates\response_play.json");
+            JsonData = System.IO.File.ReadAllText(@"[your file]");
         }
 
         [HttpGet]
